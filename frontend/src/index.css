@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --app-bg: #E0E1DD;
+  --app-bg-rgb: 224 225 221;
+  --app-surface: #FFFFFF;
+  --app-surface-rgb: 255 255 255;
+  --app-text: #0D1B2A;
+  --app-text-rgb: 13 27 42;
+  --app-text-secondary: #415A77;
+  --app-text-secondary-rgb: 65 90 119;
+  --app-border: #C4CBD3;
+  --app-border-rgb: 196 203 211;
+}
+
+.dark {
+  --app-bg: #0D1B2A;
+  --app-bg-rgb: 13 27 42;
+  --app-surface: #1B263B;
+  --app-surface-rgb: 27 38 59;
+  --app-text: #E0E1DD;
+  --app-text-rgb: 224 225 221;
+  --app-text-secondary: #778DA9;
+  --app-text-secondary-rgb: 119 137 169;
+  --app-border: #415A77;
+  --app-border-rgb: 65 90 119;
+}
+
+html, body {
+  background-color: var(--app-bg);
+  color: var(--app-text);
+}

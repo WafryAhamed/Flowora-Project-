@@ -163,7 +163,7 @@ interface AppState {
 const THEME_KEY = 'flowora-theme';
 const TOKEN_KEY = 'flowora-token';
 
-const API_URL = 'http://localhost:8000/api/v1';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
 
 function getInitialTheme(): 'light' | 'dark' {
   if (typeof window === 'undefined') return 'light';

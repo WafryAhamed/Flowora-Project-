@@ -1,9 +1,11 @@
+import os
+import logging
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
-from contextlib import asynccontextmanager
-
-import logging
+from app.middleware import add_performance_middleware
 
 logging.basicConfig(
     level=logging.INFO,
@@ -57,15 +59,28 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# Set all CORS enabled origins
+# Add performance middleware
+add_performance_middleware(app)
+
+allowed_origins = [
+    origin.strip()
+    for origin in os.getenv(
+        "CORS_ALLOWED_ORIGINS",
+        ",".join(
+            [
+                settings.FRONTEND_URL,
+                "http://localhost:3000",
+                "http://localhost:3001",
+                "http://localhost:3002",
+            ]
+        ),
+    ).split(",")
+    if origin.strip()
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        settings.FRONTEND_URL,
-        "http://localhost:3000",
-        "http://localhost:3001",
-        "http://localhost:3002",
-    ],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -75,6 +90,11 @@ app.add_middleware(
 @app.get("/")
 def root():
     return {"message": "Welcome to the Flowora Backend API"}
+
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}
 
 
 from app.api.routes import api_router

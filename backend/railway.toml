@@ -1,0 +1,12 @@
+[buildpacks]
+pack = "heroku/buildpacks:20"
+
+[[buildpacks.build-args]]
+key = "BP_PYTHON_VERSION"
+value = "3.11"
+
+[build]
+builder = "heroku/builder:22"
+
+[run]
+web = "uvicorn app.main:app --host 0.0.0.0 --port $PORT --workers 4 --loop uvloop"

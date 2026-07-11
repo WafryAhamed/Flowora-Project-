@@ -28,6 +28,7 @@ import {
 'lucide-react';
 import { Input, Badge, cn } from './ui';
 import { ChatWidget } from './ChatWidget';
+import logo from '@/logo/logo.PNG';
 
 interface NavItem {
   name: string;
@@ -213,7 +214,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   <>
       <div className="flex h-16 items-center justify-between px-4 border-b border-white/10 shrink-0">
         {showLabels &&
-      <span className="text-xl font-bold tracking-tight">Flowora</span>
+      <img src={logo.src ?? logo} alt="Flowora" className="h-8 object-contain" />
       }
         <button
         onClick={() => setCollapsed((c) => !c)}
@@ -347,6 +348,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
               
               <Menu className="w-5 h-5" />
             </button>
+            <Link href="/dashboard" className="hidden md:flex items-center gap-2">
+              <img src={logo.src ?? logo} alt="Flowora" className="h-8 object-contain"/>
+            </Link>
             {/* Global Search */}
             <div className="relative w-64 hidden md:block" ref={searchRef}>
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-brand-muted pointer-events-none" />
